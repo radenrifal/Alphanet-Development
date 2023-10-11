@@ -151,6 +151,7 @@ if (defined('STDIN')) {
 define('VIEW_AUTH',                 'auth/');
 define('VIEW_BACK',                 'backend/');
 define('VIEW_FRONT',                'frontend/');
+define('VIEW_SHOP',                 'shop/');
 define('VIEW_COMING_SOON',          'comingsoon/');
 define('VIEW_MAINTENANCE',          'maintenance/');
 define('VIEW_PATH',                 str_replace("\\", "/", VIEWPATH));
@@ -218,6 +219,17 @@ define('COMINGSOON_CSS_PATH',       BASE_URL . ASSET_FOLDER . '/comingsoon/css/'
 define('COMINGSOON_JS_PATH',        BASE_URL . ASSET_FOLDER . '/comingsoon/js/');
 define('MAINTENANCE_CSS_PATH',      BASE_URL . ASSET_FOLDER . '/maintenance/css/');
 define('MAINTENANCE_JS_PATH',       BASE_URL . ASSET_FOLDER . '/maintenance/js/');
+
+/*
+|--------------------------------------------------------------------------
+| Shop Assets Path Settings
+|--------------------------------------------------------------------------
+*/
+define('SH_CSS_PATH',                   BASE_URL . ASSET_FOLDER . '/shop/css/');
+define('SH_JS_PATH',                    BASE_URL . ASSET_FOLDER . '/shop/js/');
+define('SH_IMG_PATH',                   BASE_URL . ASSET_FOLDER . '/shop/img/');
+define('SH_FONTS_PATH',                 BASE_URL . ASSET_FOLDER . '/shop/fonts/');
+define('SH_PLUGIN_PATH',                BASE_URL . ASSET_FOLDER . '/shop/plugins/');
 
 /*
 |--------------------------------------------------------------------------
@@ -331,6 +343,7 @@ defined('PACKAGE_STAR2')        or define('PACKAGE_STAR2', 'star2');
 defined('PACKAGE_STAR3')        or define('PACKAGE_STAR3', 'star3');
 defined('PACKAGE_STAR4')        or define('PACKAGE_STAR4', 'star4');
 defined('PACKAGE_STAR5')        or define('PACKAGE_STAR5', 'star5');
+defined('PACKAGE_BASIC')        or define('PACKAGE_BASIC', 'basic');
 
 /*
 |--------------------------------------------------------------------------

@@ -2070,12 +2070,25 @@ if (!function_exists('get_parseURL')) {
                     $urldata['domain']      = $tmp[($n - 3)] . "." . $tmp[($n - 2)] . "." . $tmp[($n - 1)];
                     $urldata['tld']         = $tmp[($n - 2)] . "." . $tmp[($n - 1)];                        //top-level domain
                     $urldata['root']        = $tmp[($n - 3)];                                         //second-level domain
-                    $urldata['subdomain']   = $n == 4 ? $tmp[0] : ($n == 3 && strlen($tmp[($n - 2)]) <= 3) ? $tmp[0] : '';
+                    $subDomain              = "";
+                    if($n == 4){
+                        $subDomain          = $tmp[0];
+                    }
+                    else{
+                        if($n == 3 && strlen($tmp[($n - 2)]) <= 3){
+                            $subDomain      = $tmp[0];
+                        }
+                    }
+                    $urldata['subdomain']   = $subDomain;
                 } else {
                     $urldata['domain']      = $tmp[($n - 2)] . "." . $tmp[($n - 1)];
                     $urldata['tld']         = $tmp[($n - 1)];
                     $urldata['root']        = $tmp[($n - 2)];
-                    $urldata['subdomain']   = $n == 3 ? $tmp[0] : '';
+                    $subDomain              = "";
+                    if($n == 3){
+                        $subDomain          = $tmp[0];
+                    }
+                    $urldata['subdomain']   = $subDomain;
                 }
             }
 

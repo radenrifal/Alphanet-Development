@@ -681,7 +681,6 @@ class Pin extends AN_Controller {
             die(json_encode($data));
         }
 
-
         $productdata        = an_products(0, true);
         if ( $productdata ) {
             foreach ($productdata as $key => $row) {
@@ -713,6 +712,7 @@ class Pin extends AN_Controller {
                 $row->order     = ($key+1);
                 $row->pins      = $pins;
                 $products[]     = $row;
+
             }
         }
 

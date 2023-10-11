@@ -747,3 +747,189 @@ if (!function_exists('an_extract_products_order')) {
         return $res;
     }
 }
+
+
+/*
+|--------------------------------------------------------------------------
+| Get Product Data 
+| @param = price, qty, etc..
+|--------------------------------------------------------------------------
+*/
+function shop_product($id, $provincearea = 1) //default 1 aja
+{
+    if ( !$id ) { return false; }
+
+    $CI = &get_instance();
+
+    if ( $product = an_products($id, false) ) {
+        $price      = ( is_logged_in() ) ? $product->{"price_agent".$provincearea} : $product->{"price_customer".$provincearea};
+        $min_qty    = ( is_logged_in() ) ? $product->discount_agent_min : $product->discount_customer_min;
+        $discount   = ( is_logged_in() ) ? $product->discount_agent : $product->discount_customer;
+        $disctype   = ( is_logged_in() ) ? $product->discount_agent_type : $product->discount_customer_type;
+        $min_order  = ( is_logged_in() ) ? $product->min_order : 1;
+
+        $product->min_order_agent   = $product->min_order;
+        $product->min_order         = $min_order;
+        $product->price             = $price;
+        $product->min_qty           = $min_qty;
+        $product->discount          = $discount;
+        $product->discount_type     = $disctype;
+
+        return $product;
+    } else {
+        return false;
+    }
+}
+/*
+|--------------------------------------------------------------------------
+| Get Product Package Data 
+| @param = price, qty, etc..
+|--------------------------------------------------------------------------
+*/
+function shop_product_package($limit=0, $offset=0, $conditions='', $order_by='')
+{
+    $CI = &get_instance();
+    if ( $data = $CI->Model_Product->get_all_product_package($limit, $offset, $conditions, $order_by) ) {
+        $total_data = an_get_last_found_rows();
+        return array('data' => $data, 'total_row' => $total_data);
+    } else {
+        return false;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Get Product Data 
+| @param = price, qty, etc..
+|--------------------------------------------------------------------------
+*/
+function data_product($id, $param)
+{
+    if ( !$id && ! $param ) { return false; }
+
+    $CI = &get_instance();
+
+    if ( $product = an_products($id, false) ) {
+        if ( $param == 'price' ) {
+            if ( is_logged_in() ) {
+                $param = 'price_agent';
+            } else {
+                $param = 'price_customer';
+            }
+        }
+        return $product->$param;
+    } else {
+        return 'Produk tidak ditemukan';
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Get Product Data 
+| @param = price, qty, etc..
+|--------------------------------------------------------------------------
+*/
+function shop_search_product($limit = 0, $start = 0, $condition = '', $order_by = '')
+{
+    $CI = &get_instance();
+
+    if ( $data = $CI->Model_Product->get_all_product($limit, $start, $condition, $order_by) ) {
+        $total_data = an_get_last_found_rows();
+        return array('data' => $data, 'total_row' => $total_data);
+    }
+    return false;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Get Category Name By ID
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('shop_category')) {
+    function shop_category($id, $val)
+    {
+        $CI = &get_instance();
+        $query = an_product_category($id, false);
+
+        if ($query) {
+            $category = isset($query->$val) ? $query->$val : false;
+            return $category;
+        } else {
+            return 'No Category Found';
+        }
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Get Product Proce
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('product_price')) {
+    function product_price($product)
+    {
+        if ( ! $product ) { return 0; }
+        if ( ! isset($product->price_agent) && ! isset($product->price_customer)) { return 0; }
+        $price = ( is_logged_in() ) ? $product->price_agent : $product->price_customer;
+        return $price;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Get Product Proce
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('product_discount')) {
+    function product_discount($product)
+    {
+        if ( ! $product ) { return 0; }
+        if ( ! isset($product->price_agent) && ! isset($product->price_customer)) { return 0; }
+        if ( ! isset($product->discount_agent) && ! isset($product->discount_agent)) { return 0; }
+        if ( ! isset($product->discount_agent_min) && ! isset($product->discount_agent_min)) { return 0; }
+        if ( ! isset($product->discount_agent_type) && ! isset($product->discount_agent_type)) { return 0; }
+
+        $promo      = '';
+        $currency   = config_item('currency');
+        $price      = ( is_logged_in() ) ? $product->price_agent : $product->price_customer;
+        $discount   = ( is_logged_in() ) ? $product->discount_agent : $product->discount_customer;
+        $min_qty    = ( is_logged_in() ) ? $product->discount_agent_min : $product->discount_customer_min;
+        $disctype   = ( is_logged_in() ) ? $product->discount_agent_type : $product->discount_customer_type;
+
+        if ( $min_qty <= 1 && $discount > 0 ) {
+            if ( $disctype == 'percent' ) {
+                $promo = $discount .' %';
+            } else {
+                $promo = an_accounting($discount, $currency);
+            }
+        }
+
+        return $promo;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Get Product Iamge
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('product_image')) {
+    function product_image($image, $thumbnail = true )
+    {
+        $CI = &get_instance();
+
+        $no_image = ASSET_PATH . 'backend/img/no_image.jpg';
+        if ( $image ) {
+            $thumb_path = $thumbnail ? 'thumbnail/' : '';
+            $img_src    = PRODUCT_IMG_PATH . $thumb_path . $image;
+            if ( file_exists($img_src) ) {
+                $img_src = PRODUCT_IMG . $thumb_path . $image;
+            } else {
+                $img_src = $no_image; 
+            }
+            return $img_src;
+        } else {
+            return $no_image;
+        }
+    }
+}

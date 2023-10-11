@@ -199,3 +199,19 @@ $route['produk/alphaking']                          = "frontend/produk_alphaking
 $route['peluang']                                   = "frontend/peluang";
 $route['testimoni']                                 = "frontend/testimoni";
 $route['tool-promosi']                              = "frontend/tool_promosi";
+
+// Shop Routes
+// ---------------------------------------------------------
+$route['search']                    			= "shop/pageSearchProduct";
+$route['packageproduct/detail/(:any)'] 			= "shop/pagePackageProductDetail/$1";
+$route['product/detail/(:any)']     			= "shop/pageProductDetail/$1";
+$route['check-order']               			= "shop/pageCheckOrder";
+$route['about-us-shop']                         = "shop/pageAboutUs";
+$route['shop']                      			= "shop/pageProducts";
+$route['cart']                      			= "shop/pageCart";
+$route['find-agent/(:any)']        				= "shop/pageFindSeller/$1";
+$route['checkout']                  			= "shop/pageCheckout";
+$route['invoice/(:any)']            			= "shop/pageInvoice/$1";
+$route['invoicecustomer/(:any)'] 				= "shop/pageInvoiceCustomer/$1";
+$route['confirm/payment/(:any)']    			= "shop/pageConfirmPayment/$1";
+$route['confirm/paymentcustomer/(:any)'] 		= "shop/pageConfirmPaymentCustomer/$1";

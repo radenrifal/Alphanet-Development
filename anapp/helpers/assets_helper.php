@@ -12,7 +12,7 @@ if ( !function_exists('an_headstyles') ){
         $CI =& get_instance();
         
         $carabiner  = $carabiner ? $carabiner : config_item('cfg_carabiner');
-        $main_css   = '';
+        $main_css   = array();
         $loadstyles = '';
         if( !$styles || empty($styles) ) return $loadstyles;
 
@@ -37,7 +37,7 @@ if ( !function_exists('an_scripts') ){
     	$CI =& get_instance();
         
         $carabiner  = config_item('cfg_carabiner');
-        $main_js    = '';
+        $main_js    = array();
         $loadscript = '';
         if( !$scripts || empty($scripts) ) return $loadscript;
         

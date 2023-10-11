@@ -100,15 +100,17 @@ $config['member_type']          = array(
 // ================================================
 $config['member_type_status']   = array(
     TYPE_STATUS_RESELLER        => 'Reseller',
-    TYPE_STATUS_DROPSHIPPER     => 'Dropshipper'
+    //TYPE_STATUS_DROPSHIPPER     => 'Dropshipper'
 );
 
 $config['member_rank']          = array(
-    PACKAGE_STAR1               => 'Star 1',
+    PACKAGE_STAR1               => 'Package Standar',
+    /*
     PACKAGE_STAR2               => 'Star 2',
     PACKAGE_STAR3               => 'Star 3',
     PACKAGE_STAR4               => 'Star 4',
     PACKAGE_STAR5               => 'Star 5',
+    */
 );
 
 // ================================================
